@@ -14,8 +14,8 @@ To install this:
 $ npm install
 ```
 
-If you want to rebuild the protobuf implementations, feel free to compile them
-by running:
+If you want to rebuild the protobuf implementations, feel free to recompile them
+by running (but there *should* be no reason to do this):
 
 ```
 $ ./compile.sh
@@ -37,9 +37,9 @@ make_tensor(array, type)
 
 #### Example
 ```
-const lib = require('lib.js');
+const tensorjs = require('tensorjs');
 
-lib.make_tensor([[1, 2], [3, 4]], lib.types.INT);
+tensorjs.make_tensor([[1, 2], [3, 4]], tensorjs.types.INT);
 // returns '\b\u0003\u0012\b\u0012\u0002\b\u0002\u0012\u0002\b\u0002:\u0004\u0001\u0002\u0003\u0004'
 ```
 
@@ -48,8 +48,8 @@ lib.make_tensor([[1, 2], [3, 4]], lib.types.INT);
 We provide two convenience functions so that you don't have to pass in the type:
 
 ```
-lib.IntTensor([[1, 2], [3, 4]]);
-lib.FloatTensor([1.5, 2.5]);
+tensorjs.IntTensor([[1, 2], [3, 4]]);
+tensorjs.FloatTensor([1.5, 2.5]);
 ```
 
 ### Reading Tensor Protobufs
@@ -65,9 +65,9 @@ make_array(tensor_pb)
 
 #### Example
 ```
-const lib = require('lib.js');
+const tensorjs = require('tensorjs');
 
-lib.make_array('\b\u0003\u0012\b\u0012\u0002\b\u0002\u0012\u0002\b\u0002:\u0004\u0001\u0002\u0003\u0004');
+tensorjs.make_array('\b\u0003\u0012\b\u0012\u0002\b\u0002\u0012\u0002\b\u0002:\u0004\u0001\u0002\u0003\u0004');
 // returns [[1, 2], [3, 4]]
 ```
 
