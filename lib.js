@@ -117,11 +117,11 @@ function make_tensor (arr, type = TYPES.INT, do_verify_shape = false) {
 };
 module.exports.make_tensor = make_tensor;
 
-module.exports.IntTensor = function (arr) {
+module.exports.intTensor = function (arr) {
   return make_tensor(arr, TYPES.INT);
 };
 
-module.exports.FloatTensor = function (arr) {
+module.exports.floatTensor = function (arr) {
   return make_tensor(arr, TYPES.FLOAT);
 };
 

@@ -48,8 +48,8 @@ tensorjs.make_tensor([[1, 2], [3, 4]], tensorjs.types.INT);
 We provide two convenience functions so that you don't have to pass in the type:
 
 ```
-tensorjs.IntTensor([[1, 2], [3, 4]]);
-tensorjs.FloatTensor([1.5, 2.5]);
+tensorjs.intTensor([[1, 2], [3, 4]]);
+tensorjs.floatTensor([1.5, 2.5]);
 ```
 
 ### Reading Tensor Protobufs
