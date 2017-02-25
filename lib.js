@@ -69,8 +69,19 @@ function verify_shape (arr, shape) {
   return true;
 };
 
+function make_tensor(arr, type = TYPES.INT, do_verify_shape = false) {
+  const ab = make_tensor_ab(arr, type, do_verify_shape);
+
+  // verify that decodes to same value -- found some bugs here previously
+  if (!_.isEqual(ab, str2ab(ab2str(ab)))) {
+    throw "Unexpected encoding failure (does not decode to same val)";
+  }
+
+  return ab2str(ab);
+};
+
 // takes in a multidimsional array and produces stringified tensor protobuf
-function make_tensor (arr, type = TYPES.INT, do_verify_shape = false) {
+function make_tensor_ab (arr, type = TYPES.INT, do_verify_shape = false) {
   // extract shape and type
   shape= extract_shape(arr, do_verify_shape);
 
@@ -108,14 +119,10 @@ function make_tensor (arr, type = TYPES.INT, do_verify_shape = false) {
     throw "Unsupported type";
   }
 
-  // stringify
-  if (!_.isEqual(tensor.serializeBinary(), str2ab(ab2str(tensor.serializeBinary())))) {
-    throw "Unexpected encoding failure (does not decode to same val)";
-  }
-
-  return ab2str(tensor.serializeBinary());
+  return tensor.serializeBinary();
 };
 module.exports.make_tensor = make_tensor;
+module.exports.make_tensor_ab = make_tensor_ab;
 
 module.exports.intTensor = function (arr) {
   return make_tensor(arr, TYPES.INT);
@@ -125,10 +132,22 @@ module.exports.floatTensor = function (arr) {
   return make_tensor(arr, TYPES.FLOAT);
 };
 
+module.exports.intTensorAB = function (arr) {
+  return make_tensor_from_ab(arr, TYPES.INT);
+};
+
+module.exports.floatTensorAB = function (arr) {
+  return make_tensor_from_ab(arr, TYPES.FLOAT);
+};
+
 // takes in stringifed tensor protobuf and produces a multidimsional array
-module.exports.make_array = function (tpb) {
+function make_array(tpb) {
+  return make_array_ab(str2ab(tpb));
+}
+
+function make_array_ab(tpb) {
   // get the tensor object
-  const tensor = new pb.TensorProto.deserializeBinary(str2ab(tpb));
+  const tensor = new pb.TensorProto.deserializeBinary(tpb);
 
   // get shape
   let shape = _.map(tensor.getTensorShape().getDimList(), (dim) => dim.getSize());
@@ -189,3 +208,6 @@ module.exports.make_array = function (tpb) {
 
   return result;
 };
+
+module.exports.make_array = make_array;
+module.exports.make_array_ab = make_array_ab;
