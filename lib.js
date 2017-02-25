@@ -133,11 +133,11 @@ module.exports.floatTensor = function (arr) {
 };
 
 module.exports.intTensorAB = function (arr) {
-  return make_tensor_from_ab(arr, TYPES.INT);
+  return make_tensor_ab(arr, TYPES.INT);
 };
 
 module.exports.floatTensorAB = function (arr) {
-  return make_tensor_from_ab(arr, TYPES.FLOAT);
+  return make_tensor_ab(arr, TYPES.FLOAT);
 };
 
 // takes in stringifed tensor protobuf and produces a multidimsional array
