@@ -1,6 +1,6 @@
 {
   "name": "tensorjs",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Read and write tensor protobufs from Javascript multidimensional arrays.",
   "main": "lib.js",
   "scripts": {
